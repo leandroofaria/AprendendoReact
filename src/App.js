@@ -1,11 +1,21 @@
+import { useState } from 'react'
+
 import MostrarAluno from './components/Aluno'
 
 function App() {
+  const [aluno, setAluno] = useState('Sujeito Programador')
+
+  function MudarNome(nome){
+    setAluno(nome)
+  }
+  
   return(
     <div>
-      <h1>Testando componentes</h1>
-      <MostrarAluno aluno="Pedro" idade='18' genero='Masculino'/>
-      <MostrarAluno aluno="Julia" idade='17' genero='Feminino'/>
+      <h1>Aprendendo useState</h1>
+      <h3>Olá {aluno}</h3>
+      <button onClick={ () => MudarNome('Leandro') }>
+        Mudar Nome: 
+      </button>
     </div>
   )
 }
