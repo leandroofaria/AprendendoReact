@@ -1,1 +1,1 @@
-Este projeto em React lista repositórios do GitHub e permite que o usuário adicione-os aos favoritos. Ele utiliza a API do GitHub para exibir os repositórios e oferece funcionalidades de marcação de favoritos, sendo uma prática de aprendizado que envolve conceitos de componentes, estado e eventos com React.
+Prática de aprendizado que envolve conceitos de componentes, estado e eventos com React.
