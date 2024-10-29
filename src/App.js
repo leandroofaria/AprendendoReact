@@ -1,50 +1,49 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import './style.css';
+
+////https://sujeitoprogramador.com/rn-api/?api=posts
+
+
 
 function App() {
-  const [input, setInput] = useState('');
-  const [tarefas, setTarefas] = useState([
-    'Pagar a conta de luz', 'Estudar react'
-  ]);
+  const [nutri, setNutri] = useState([]);
 
-  useEffect(() => {
-    const tarefasStorage = localStorage.getItem('@tarefa');
-    if (tarefasStorage) {
-      setTarefas(JSON.parse(tarefasStorage));
+  useEffect(()=> {
+
+    function loadApi(){
+      let url = 'https://sujeitoprogramador.com/rn-api/?api=posts';
+
+      fetch(url)
+      .then((r)=> r.json())
+      .then((json)=> {
+        console.log(json);
+        setNutri(json);
+      })
+
     }
+
+    loadApi();
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem('@tarefa', JSON.stringify(tarefas));
-  }, [tarefas]);
-
-  function handleRegistrer(event) {
-    event.preventDefault();
-    if (input.trim() === '') return; // Não salva tarefa vazia
-    setTarefas([...tarefas, input]);
-    setInput('');
-  }
-
+  
   return (
-    <div>
-      <h1>Lista de Tarefas</h1>
-      <form onSubmit={handleRegistrer}>
-        <label>Nome Da Tarefa:</label><br />
-        <input
-          placeholder="Digite uma tarefa"
-          value={input}
-          onChange={(event) => setInput(event.target.value)}
-        /><br /><br />
+    <div className="container">
+      <header>
+        <strong>React Nutri</strong>
+      </header>
 
-        <button type="submit">Registrar</button>
-      </form>
+      {nutri.map((item)=>{
+        return(
+          <article key={item.id} className="post">
+            <strong className="titulo">{item.titulo}</strong>
 
-      <br />
-
-      <ul>
-        {tarefas.map((tarefa, index) => (
-          <li key={index}>{tarefa}</li>
-        ))}
-      </ul>
+            <img src={item.capa} alt={item.titulo} className="capa" />
+            <p className="subtitulo">
+              {item.subtitulo}
+            </p>
+            <a className="botao">Acessar</a>
+          </article>
+        )
+      })}
     </div>
   );
 }
